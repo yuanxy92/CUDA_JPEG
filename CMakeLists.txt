@@ -4,7 +4,7 @@
 #
 
 cmake_minimum_required (VERSION 3.1)
-set(name "CUDAJPEG")
+set(name "CUDA_JPEG")
 project ( ${name} )
 
 # c++ version
@@ -21,35 +21,20 @@ find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 # cuda
-find_package(CUDA)
+set(NVIDIA_VIDEO_CODEC_SDK E:/libs/Video_Codec_SDK)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+find_package(CUDA )
 set(CUDA_NVCC_FLAGS
     ${CUDA_NVCC_FLAGS}
 #    -O3 
 	-gencode=arch=compute_61,code=\"sm_61,compute_61\"
     )
 
+# nv codec 
+set(NV_CODEC_DIRS "E:/libs/NV_CODEC/inc")
+include_directories(${NV_CODEC_DIRS})
 
-set(MY_HEADER_FILES
-    Exceptions.h
-    helper_cuda.h
-    helper_string.h
-    NPPJpegCoder.h
-)
-
-set(MY_SOURCE_FILES 
-    # C++ source file
-    NPPJpegCoder.cpp
-    # main function
-    main.cpp
-)
-
-cuda_add_executable(${name}
-    ${MY_HEADER_FILES}
-    ${MY_SOURCE_FILES}
-)
-
-target_link_libraries(${name}
-    ${OpenCV_LIBS}
-    ${CUDA_npp_LIBRARY}
-    ${CUDA_nppc_LIBRARY}
-)
+# add sub-directory
+add_subdirectory(NPP_JPEG)
+#add_subdirectory(NV_CODEC_JPEG)
+add_subdirectory(NVPipe)
