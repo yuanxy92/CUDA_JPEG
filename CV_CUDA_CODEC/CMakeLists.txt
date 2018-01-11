@@ -24,6 +24,9 @@ cuda_add_executable(${subname}
 
 target_link_libraries(${subname}
     ${OpenCV_LIBS}
+    ${CUDA_npp_LIBRARY}
+    ${CUDA_nppc_LIBRARY}
+    ${CUDA_nppi_LIBRARY}
     cuda 
     nvcuvid
     cudart.lib
