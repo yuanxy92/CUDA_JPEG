@@ -37,4 +37,4 @@ include_directories(${NV_CODEC_DIRS})
 # add sub-directory
 add_subdirectory(NPP_JPEG)
 #add_subdirectory(NV_CODEC_JPEG)
-add_subdirectory(NVPipe)
+add_subdirectory(CV_CUDA_CODEC)
